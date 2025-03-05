@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState } from "react";
+import ProductList from "./components/ProductList";
 
-function App() {
+const App = () => {
+  const [products] = useState([
+    {
+      id: 1,
+      name: "Product 1",
+      price: 299.99,
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      id: 2,
+      name: "Product 2",
+      price: 499.99,
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      id: 3,
+      name: "Product 3",
+      price: 149.99,
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      id: 4,
+      name: "Product 4",
+      price: 199.99,
+      image: "https://via.placeholder.com/150",
+    },
+    {
+      id: 5,
+      name: "Product 5",
+      price: 349.99,
+      image: "https://via.placeholder.com/150",
+    },
+  ]);
+
+  const handleAddToCart = (product) => {
+    alert(`${product.name} added to cart!`);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App p-8">
+      <h1 className="text-2xl font-bold mb-6">Product Listing</h1>
+      <ProductList products={products} onAddToCart={handleAddToCart} />
     </div>
   );
-}
+};
 
 export default App;
