@@ -5,9 +5,64 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fa;
+  color: #333;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  border: 1px solid #ced4da;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.25rem;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+h1, h2, h3 {
+  color: #2d3748;
+}
+
+.sticky-cart {
+  position: sticky;
+  top: 2rem;
+}
+
+/* Custom scrollbar for product list */
+.product-list::-webkit-scrollbar {
+  height: 8px;
+}
+
+.product-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.product-list::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.product-list::-webkit-scrollbar-thumb:hover {
+  background: #666;
 }
