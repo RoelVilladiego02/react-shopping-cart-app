@@ -1,21 +1,18 @@
+// App.js
 import React, { useState, useEffect } from "react";
 import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 
 const App = () => {
-  // State for product list
   const [products, setProducts] = useState([]);
-  
-  // State for cart items
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
-  
-  // State for total price
   const [totalPrice, setTotalPrice] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Simulate fetching product data on component mount
   useEffect(() => {
     const fetchProducts = async () => {
-      // Simulated product data
       const fetchedProducts = [
         { id: 1, name: "Product 1", price: 299.99, image: "https://via.placeholder.com/150" },
         { id: 2, name: "Product 2", price: 499.99, image: "https://via.placeholder.com/150" },
@@ -23,11 +20,12 @@ const App = () => {
         { id: 4, name: "Product 4", price: 199.99, image: "https://via.placeholder.com/150" },
         { id: 5, name: "Product 5", price: 349.99, image: "https://via.placeholder.com/150" },
       ];
-      setProducts(fetchedProducts); // Update state with fetched products
+      setProducts(fetchedProducts);
+      setFilteredProducts(fetchedProducts);
     };
 
     fetchProducts();
-  }, []); // Empty dependency array ensures this runs only on mount
+  }, []);
 
   // Recalculate total price whenever cart updates
   useEffect(() => {
@@ -40,9 +38,9 @@ const App = () => {
     };
 
     calculateTotal();
-  }, [cartItems]); // Runs whenever cartItems changes
+  }, [cartItems]);
 
-  // Function to add products to the cart
+  // Add product to cart
   const handleAddToCart = (product) => {
     const existingItem = cartItems.find((item) => item.id === product.id);
     if (existingItem) {
@@ -58,26 +56,53 @@ const App = () => {
     }
   };
 
-  // Function to remove products from the cart
+  // Remove product from cart
   const handleRemoveFromCart = (id) => {
     setCartItems(cartItems.filter((item) => item.id !== id));
   };
 
+  // Clear all items from cart
+  const handleClearCart = () => {
+    setCartItems([]);
+  };
+
+  // Filter products based on search query
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+    const filtered = products.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  };
+
   return (
     <div className="App p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-      {/* Product List */}
+      {/* Product List with Search */}
       <div>
         <h1 className="text-2xl font-bold mb-6">Product Listing</h1>
-        <ProductList products={products} onAddToCart={handleAddToCart} />
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="w-full p-2 mb-4 border rounded"
+        />
+        <ProductList products={filteredProducts} onAddToCart={handleAddToCart} />
       </div>
 
-      {/* Cart */}
+      {/* Cart with Clear Button */}
       <div>
         <h2 className="text-2xl font-bold mb-6">Shopping Cart</h2>
+        <button
+          onClick={handleClearCart}
+          className="mb-4 px-4 py-2 bg-red-500 text-white rounded"
+        >
+          Clear Cart
+        </button>
         <Cart
           cartItems={cartItems}
           onRemove={handleRemoveFromCart}
-          totalPrice={totalPrice} // Pass the total price
+          totalPrice={totalPrice}
         />
       </div>
     </div>
