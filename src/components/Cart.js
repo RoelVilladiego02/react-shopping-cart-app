@@ -7,7 +7,6 @@ const Cart = ({ cartItems, onRemove }) => {
 
   return (
     <div className="cart bg-white p-6 rounded shadow-md">
-      <h2 className="text-xl font-bold mb-4">Shopping Cart</h2>
       {cartItems.length > 0 ? (
         <>
           {cartItems.map((item) => (
