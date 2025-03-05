@@ -1,10 +1,7 @@
 import React from "react";
 import CartItem from "./CartItem";
 
-const Cart = ({ cartItems, onRemove }) => {
-  const calculateTotal = () =>
-    cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
-
+const Cart = ({ cartItems, onRemove, totalPrice }) => {
   return (
     <div className="cart bg-white p-6 rounded shadow-md">
       {cartItems.length > 0 ? (
@@ -13,7 +10,7 @@ const Cart = ({ cartItems, onRemove }) => {
             <CartItem key={item.id} item={item} onRemove={onRemove} />
           ))}
           <div className="total-price text-right mt-4 text-lg font-bold">
-            Total: ₱{calculateTotal().toFixed(2)}
+            Total: ₱{totalPrice.toFixed(2)}
           </div>
         </>
       ) : (
